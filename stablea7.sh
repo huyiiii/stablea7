@@ -1,10 +1,10 @@
 echo installing brew
 sudo apt-get update --fix-missing
-sudo apt-get install git libcurl4 libzip-dev libplist-dev libimobiledevice openssl libssl-dev libpng-dev
+sudo apt-get install git libcurl4-openssl-dev libzip-dev libplist-dev openssl libusb-1.0 libssl-dev python-dev libusb-dev libpng-dev libusbmuxd-dev libplist++ libreadline5-dev
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
 echo 'eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)' >>~/.profile
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-brew install autoconf automake bsdiff libimobiledevice libzip libtool libzip lsusb openssl pkg-config wget
+brew install autoconf automake libimobiledevice libzip libtool libzip lsusb openssl pkg-config wget
 brew link libtool
 echo "==> Downloading libirecovery..."
 git clone https://github.com/libimobiledevice/libirecovery.git
@@ -28,6 +28,16 @@ rm -rf libfragmentzip
 mkdir StableA7
 cd StableA7
 echo "==> Downloading binaries..."
+git clone https://github.com/libimobiledevice/libimobiledevice
+cd igetnonce
+./autogen.sh
+make
+sudo make install
+git clone https://github.com/tihmstar/igetnonce
+./autogen.sh
+make
+sudo make install
+
 echo "==> Downloading patches..."
 wget -O patch.zip https://gitlab.com/devluke/stablea7/-/archive/master/stablea7-master.zip?path=patch -q --show-progress
 unzip -q patch.zip
